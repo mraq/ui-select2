@@ -197,6 +197,15 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
           });
         }
 
+        // Watch string attributes (one-directional) and update the element options if they change
+        if('placeholder' in attrs) {
+            scope.$watch(function() {
+                return attrs.placeholder;
+            }, function() {
+                elm.select2(opts);
+            });
+        }
+
         // Initialize the plugin late so that the injected DOM does not disrupt the template compiler
         $timeout(function () {
           elm.select2(opts);

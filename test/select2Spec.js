@@ -177,6 +177,14 @@ describe('uiSelect2', function () {
       scope.$apply('multiple = false');
       expect(element.siblings().hasClass('select2-container-multi')).toBe(false);
     });
+    it('should observe the placeholder attribute', function () {
+      var element = $compile('<select ui-select2="{allowClear: true}" ng-model="foo" data-placeholder="{{myPlaceholder}}"><option></option></select>')(scope);
+
+      scope.$apply('myPlaceholder = "my text"');
+      expect(element.siblings().find('.select2-chosen').text()).toBe('my text');
+      scope.$apply('myPlaceholder = "--select--"');
+      expect(element.siblings().find('.select2-chosen').text()).toBe('--select--');
+    });
     it('should observe an option with ng-repeat for changes', function(){
       scope.items = ['first', 'second', 'third'];
       scope.foo = 'fourth';
