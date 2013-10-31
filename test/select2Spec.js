@@ -186,6 +186,16 @@ describe('uiSelect2', function () {
       $timeout.flush();
       expect(element.select2('val')).toBe('fourth');
     });
+    it('should not change model when an option with ng-repeat changes', function(){
+      scope.items = ['first', 'second', 'third'];
+      var element = compile('<select ui-select2 ng-model="foo"><option ng-repeat="item in items">{{item}}</option></select>');
+      expect(element.select2('val')).toBe(null);
+	  expect(scope.foo).toBe(undefined);
+      scope.$apply('items=["fourth"]');
+      $timeout.flush();
+      expect(element.select2('val')).toBe(null);
+	  expect(scope.foo).toBe(undefined);
+    });
   });
   describe('with an <input> element', function () {
     describe('compiling this directive', function () {

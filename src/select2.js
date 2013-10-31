@@ -123,8 +123,6 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
               // Delayed so that the options have time to be rendered
               $timeout(function () {
                 elm.select2('val', controller.$viewValue);
-                // Refresh angular to remove the superfluous option
-                elm.trigger('change');
                 if(newVal && !oldVal && controller.$setPristine) {
                   controller.$setPristine(true);
                 }
